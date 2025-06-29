@@ -3,6 +3,7 @@ package com.example.peminjaman_buku.config;
 import com.example.peminjaman_buku.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.*;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.*;
@@ -19,12 +20,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
-                        .loginPage("/login") // bisa dikustomisasi nanti
+                        .defaultSuccessUrl("/books", true)
                         .permitAll()
                 )
-                .logout(logout -> logout
-                        .permitAll()
-                );
+                .logout(Customizer.withDefaults());
 
         return http.build();
     }
@@ -32,15 +31,5 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsServiceImpl userDetailsService() {
-        return new UserDetailsServiceImpl();
     }
 }

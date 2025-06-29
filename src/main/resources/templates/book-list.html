@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Daftar Buku</title>
+</head>
+<body>
+<h1>Daftar Buku</h1>
+<a href="/books/add">Tambah Buku</a>
+<table border="1">
+    <tr>
+        <th>Judul</th><th>Penulis</th><th>Penerbit</th><th>Tahun</th><th>Aksi</th>
+    </tr>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publisher}"></td>
+        <td th:text="${book.year}"></td>
+        <td>
+            <a th:href="@{'/books/edit/' + ${book.id}}">Edit</a>
+            <a th:href="@{'/books/delete/' + ${book.id}}">Hapus</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

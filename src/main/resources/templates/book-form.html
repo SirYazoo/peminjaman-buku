@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Form Buku</title>
+</head>
+<body>
+<h1 th:text="${book.id} == null ? 'Tambah Buku' : 'Edit Buku'"></h1>
+<form th:action="@{/books/save}" th:object="${book}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  Judul: <input type="text" th:field="*{title}" /><br/>
+  Penulis: <input type="text" th:field="*{author}" /><br/>
+  Penerbit: <input type="text" th:field="*{publisher}" /><br/>
+  Tahun: <input type="number" th:field="*{year}" /><br/>
+  <button type="submit">Simpan</button>
+</form>
+</body>
+</html>
